@@ -1,0 +1,89 @@
+.game-info-container {
+    width: 600px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #e0f7fa, #80deea); /* 渐变背景 */
+    border-radius: 12px; /* 更大的圆角 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 更柔和的阴影 */
+    border: 1px solid #b2ebf2; /* 边框颜色 */
+}
+
+
+.game-info .details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #333;
+    float: right;
+}
+
+.game-info {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 50px; /* 调整大小 */
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #007bff; /* 边框颜色 */
+    transition: transform 0.3s; /* 添加过渡效果 */
+}
+
+.avatar:hover {
+    transform: scale(1.1); /* 鼠标悬停时放大 */
+}
+
+.spells img, .items img {
+    width: 30px; /* 调整大小 */
+    height: 30px;
+    margin-right: 5px;
+    border-radius: 4px; /* 圆角 */
+    border: 1px solid #ddd; /* 边框 */
+    transition: transform 0.3s; /* 添加过渡效果 */
+}
+
+.spells img:hover, .items img:hover {
+    transform: scale(1.1); /* 鼠标悬停时放大 */
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #333; /* 字体颜色 */
+}
+
+.name {
+    font-weight: bold;
+    font-size: 1.2em; /* 字体大小 */
+    color: #007bff; /* 字体颜色 */
+}
+
+.stats {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.kda, .gold {
+    margin-right: 15px;
+    font-size: 0.9em; /* 字体大小 */
+    color: #555; /* 字体颜色 */
+}
+
+.items {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.items article {
+    margin-right: 5px;
+}

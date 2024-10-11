@@ -1,0 +1,317 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.summoner-name-input{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+    border: 2px solid #007bff;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.rank img {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+}
+
+.overview {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.avgkda {
+    text-align: center;
+    background-color: #ffeb3b;
+    padding: 20px;
+    border-radius: 10px;
+    width: 20%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.kda h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.kda p {
+    margin: 10px 0 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+}
+
+.stat {
+    text-align: center;
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 23%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.stat h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.stat p {
+    margin: 10px 0 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.recent-champions {
+    margin-top: 20px;
+}
+
+.recent-champions h2 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.champions img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 2px solid #007bff;
+}
+
+.history {
+    margin-top: 20px;
+}
+
+.history h2 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.history li {
+    background-color: #e0e0e0;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.history li:hover {
+    background-color: #d0d0d0;
+}
+
+.check-client {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#check-client-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#check-client-btn:hover {
+    background-color: #0056b3;
+}
+
+.pupop {
+    width: 100%;
+    max-width: 1400px;
+    height: 800px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* 过渡效果 */
+    opacity: 0; 
+    visibility: hidden; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-self: flex-start; 
+    
+}
+
+.pupop h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.pupop .game-info {
+    
+    background-color: #f9f9f9; /* 卡片背景色 */
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, background-color 0.3s;
+    height: 80px;
+    width: 600px;
+}
+/* .pupop > .game-info:nth-child(9){align-self: flex-end;}
+.pupop > .game-info:nth-child(10){align-self: flex-end;}
+.pupop > .game-info:nth-child(11){align-self: flex-end;}
+.pupop > .game-info:nth-child(12){align-self: flex-end;}
+.pupop > .game-info:nth-child(13){align-self: flex-end;} */
+.pupop .game-info:hover {
+    background-color: #f0f0f0; /* 悬停时背景色 */
+    transform: translateY(-2px); /* 悬停时上移 */
+}
+
+.pupop .game-info .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.pupop .game-info .spells img,
+.pupop .game-info .items img {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.pupop .game-info .details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pupop .game-info .stats {
+    font-size: 14px;
+    color: #555;
+}
+
+.pupop .game-info .items {
+    display: flex;
+    align-items: center;
+}
+
+.pupop .game-info.left {
+    grid-column: 1/2;
+}
+.pupop .game-info.right {
+    grid-column: 2/3;
+}
+
+.pupop button {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pupop button:hover {
+    background-color: #0056b3;
+}
+
+.pupop-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pupop-left, .pupop-right {
+    width: 48%;
+}
+
+.pupop-left ul, .pupop-right ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pupop-left li, .pupop-right li {
+    background-color: #f9f9f9; /* 卡片背景色 */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.pupop-left li:hover, .pupop-right li:hover {
+    background-color: #f0f0f0; /* 悬停时背景色 */
+    transform: translateY(-2px); /* 悬停时上移 */
+}

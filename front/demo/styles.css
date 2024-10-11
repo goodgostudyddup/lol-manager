@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa;
+    display: flex;
+    flex-direction: column; /* Change to column for vertical layout */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow-y: auto; /* Allow scrolling if content overflows */
+}
+.game-title {
+    font-size: 28px; /* 增加标题字体大小 */
+    font-weight: bold; /* 加粗标题 */
+    margin-bottom: 20px;
+    color: #00796b; /* 改变标题颜色 */
+}
+.game-container {
+    display: flex; /* 使用 Flexbox 布局 */
+    justify-content: space-between; /* 左右分开 */
+    width: 100%; /* 使容器宽度为100% */
+    max-width: 1200px; /* 设置最大宽度 */
+    padding: 0 20px; /* 添加左右内边距 */
+}
+.player-container {
+    width: 48%; /* 每个容器占48%宽度 */
+    display: flex;
+    flex-direction: column; /* 垂直排列玩家信息 */
+}
+.game-info {
+    background-color: #d0e9f7;
+    padding: 15px; /* 增加内边距 */
+    border-radius: 8px; /* 增加圆角 */
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 增加阴影效果 */
+    margin-bottom: 15px; /* 增加间距 */
+    transition: transform 0.2s; /* 添加过渡效果 */
+}
+.game-info:hover {
+    transform: scale(1.02); /* 鼠标悬停时放大 */
+}
+.avatar {
+    width: 60px; /* 增加头像大小 */
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px; /* 增加右边距 */
+    border: 2px solid #00796b; /* 添加边框 */
+}
+.spells {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px; /* 增加右边距 */
+}
+.spells img {
+    width: 35px; /* 增加技能图标大小 */
+    height: 35px;
+    margin-bottom: 5px;
+}
+.details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* 使细节部分占据剩余空间 */
+}
+.stats {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+.stats div {
+    margin-right: 15px; /* 增加右边距 */
+    font-weight: bold; /* 加粗统计信息 */
+}
+.items {
+    display: flex;
+    margin-top: 5px;
+}
+.items img {
+    width: 35px; /* 增加物品图标大小 */
+    height: 35px;
+    margin-right: 5px;
+}

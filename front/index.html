@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英雄联盟战绩查询</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="history.css"> <!-- Link to the new CSS file -->
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="profile">
+                <img id="profile-pic" src="profile.jpg" alt="Profile Picture" class="profile-pic">
+                <div class="profile-info">
+                    <h1 id="display-name">null</h1>
+                    <p id="region">null | null</p>
+                    <!-- <p id="stats">总场次: null | 皮肤: null</p> -->
+                    <p id="previous-rank">上个赛季最高段位: null</p>
+                </div>
+            </div>
+            <div class="avgkda">
+                <h2>KDA</h2>
+                <p>null</p>
+            </div>
+        </div>
+        <div class="overview">
+        </div>
+        <div class="recent-champions">
+            <h2>近期使用英雄</h2>
+            <div class="champions">
+                <img src="champion1.png" alt="Champion 1">
+                <img src="champion2.png" alt="Champion 2">
+                <img src="champion3.png" alt="Champion 3">
+            </div>
+        </div>
+        <div class="history">
+            <h2>历史战绩</h2>
+            <ul id="match-history-list">
+                <!-- 初始数据 -->
+            </ul>
+        </div>
+        <div class="pupop">
+            <button>关闭</button>
+            <h2>战绩详情</h2>
+            <div class="pupop-content">
+                
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="history.js"></script> <!-- Include the new history.js script -->
+
+    <div class="g">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+    <style>
+        .g {
+            display: grid;
+            grid-auto-rows: auto;
+            grid-template-columns: repeat(2, 1fr);
+
+            &>.left {
+                grid-column: 1/2;
+            }
+            &>.right {
+                grid-column: 2/3;
+            }
+        }
+    </style>
+</body>
+</html>
