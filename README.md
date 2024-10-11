@@ -9,3 +9,12 @@
 *   导出swagger V2:<https://127.0.0.1:2999/swagger/v2/swagger.json>
 *   导出swagger V3:<https://127.0.0.1:2999/swagger/v3/openapi.json>
 
+# 目前功能
+
+查询战绩（包括隐藏战绩&#x20;
+
+计算近十场kda（找大哥
+
+~~进入对局时查询队伍两边战绩自动分析两边大哥（未完成~~
+
+![alt text](image.png)
