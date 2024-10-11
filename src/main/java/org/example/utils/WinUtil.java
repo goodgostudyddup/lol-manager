@@ -1,15 +1,13 @@
 package org.example.utils;
-
-import lombok.extern.log4j.Log4j;
 import org.example.bo.ClientBO;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-@Log4j
+/**
+ * 窗口工具 用于获得token 端口
+ */
 public class WinUtil {
     public static Pattern appPortPattern = Pattern.compile("--app-port=(\\d+)");
     public static Pattern tokenPattern = Pattern.compile("--remoting-auth-token=([\\w-]+)");
@@ -49,7 +47,8 @@ public class WinUtil {
                 try {
                     reader.close();
                 } catch (Exception e) {
-                    log.error("查询lol进程失败", e);
+                    e.printStackTrace();
+                    System.out.println("lol进程查询失败");
                 }
             }
             if (process != null) {
