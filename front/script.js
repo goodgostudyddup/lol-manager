@@ -12,8 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('display-name').textContent = `${data.gameName}#${data.tagLine}`;
                 document.getElementById('profile-pic').src = `https://ddragon.leagueoflegends.com/cdn/11.1.1/img/profileicon/${data.profileIconId}.png`;
                 document.getElementById('region').textContent = `艾欧尼亚 | ${data.summonerLevel}级`;
-                // document.getElementById('stats').textContent = `总场次: ${data.xpSinceLastLevel} | 皮肤: ${data.rerollPoints.currentPoints}`;
-                
+                fetch('http://localhost:8080/Client/getToken')
+                    .then(tokenResponse => tokenResponse.json())
+                    .then(tokenData => {
+                        document.getElementById('token').textContent = tokenData.token;
+                        console.log(tokenData.token)
+                    })
+                    .catch(error => {
+                        console.error('Error fetching token:', error);
+                        document.getElementById('token').textContent = 'Error loading token';
+                    });
                 fetch('http://localhost:8080/Client/getrank')
                     .then(rankResponse => rankResponse.json())
                     .then(rankData => {
@@ -25,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         console.error('Error fetching rank data:', rankError);
                     });
 
-                // The match history code has been moved to history.js
             }
         })
         .catch(error => {

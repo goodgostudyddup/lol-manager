@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const puuid = urlParams.get('puuid');
 
     if (puuid) {
-        // Fetch and display the initial 10 matches
+        // 获取并显示最近10场比赛
         for (let i = 0; i < 10; i++) {
             fetch(`http://localhost:8080/Client/getProductsMatchHistoryBybegIndex?puuid=${puuid}&begIndex=${i}`)
                 .then(response => response.json())
@@ -39,37 +39,37 @@ document.addEventListener('DOMContentLoaded', function() {
                         ]
                     });
 
-                    // Sort the matchData array by gameCreationDate in descending order
+                    // 按游戏创建日期降序排序
                     matchData.sort((a, b) => b.gameCreationDate - a.gameCreationDate);
 
                     if (matchData.length === i + 1) {
-                        const kdaRatio = totalDeaths === 0 ? 'Perfect' : (((totalKills + totalAssists) / totalDeaths) * 3).toFixed(2);
+                        const kdaRatio = totalDeaths === 0 ? '完美' : (((totalKills + totalAssists) / totalDeaths) * 3).toFixed(2);
                         document.querySelector('.avgkda p').textContent = kdaRatio;
                         displayMatches(matchData);
                     }
                 })
                 .catch(error => {
-                    console.error('Error fetching match history:', error);
+                    console.error('获取比赛历史时出错:', error);
                 });
         }
 
         function displayMatches(matches) {
             const matchHistoryList = document.querySelector('#match-history-list');
-            matchHistoryList.innerHTML = ''; // Clear existing matches
+            matchHistoryList.innerHTML = ''; // 清除现有比赛
             matches.forEach(match => {
                 const gameInfoContainer = document.createElement('li');
                 gameInfoContainer.className = 'game-info-container';
                 gameInfoContainer.innerHTML = `
                     <div class="game-info">
                         <figure id="yxtx">
-                            <img src="" alt="英雄头像" class="avatar">
+                            <img src="yxtx/${match.championId}.png" alt="英雄头像" class="avatar"> <!-- 使用 'yxtx' 文件夹 -->
                         </figure>
                         <div class="spells">
                             <div id="spells1">
-                                <img src="" alt="召唤师技能1">
+                                <img src="jineng/${match.spells1}.png" alt="召唤师技能1"> <!-- 使用 'jineng' 文件夹 -->
                             </div>
                             <div id="spells2">
-                                <img src="" alt="召唤师技能2">
+                                <img src="jineng/${match.spells2}.png" alt="召唤师技能2"> <!-- 使用 'jineng' 文件夹 -->
                             </div>
                         </div>
                         <div class="details">
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="items">
                                 ${match.items.map((item, index) => `
                                     <article id="item${index}">
-                                        <img src="" alt="${index + 1}">
+                                        <img src="items/${item}.png" alt="${index + 1}"> <!-- 使用 'items' 文件夹 -->
                                     </article>
                                 `).join('')}
                             </div>
@@ -92,38 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 gameInfoContainer.style.background = match.win ? 'linear-gradient(135deg, #e0f7fa, #80deea)' : 'linear-gradient(135deg, #f8d7da, #f5c6cb)';
                 gameInfoContainer.dataset.gameId = match.gameId;
                 matchHistoryList.appendChild(gameInfoContainer);
-
-                fetch(`http://localhost:8080/Client/getChampionIcons?championId=${match.championId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        gameInfoContainer.querySelector('#yxtx img').src = data.url;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching champion icon:', error);
-                    });
-
-                fetch(`http://localhost:8080/Client/getSummonerSkill?id=${match.spells1}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        gameInfoContainer.querySelector('#spells1 img').src = data.url;
-                    });
-                fetch(`http://localhost:8080/Client/getSummonerSkill?id=${match.spells2}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        gameInfoContainer.querySelector('#spells2 img').src = data.url;
-                    });
-                match.items.forEach((item, index) => {
-                    fetch(`http://localhost:8080/Client/getitem?id=${item}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            const imgElement = gameInfoContainer.querySelector(`#item${index} img`);
-                            imgElement.src = data.url || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-                        })
-                        .catch(() => {
-                            const imgElement = gameInfoContainer.querySelector(`#item${index} img`);
-                            imgElement.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-                        });
-                });
             });
         }
 
@@ -131,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return gold >= 1000 ? (gold / 1000).toFixed(1) + 'k' : gold;
         }
     } else {
-        console.error('No puuid found in URL');
+        console.error('URL中未找到puuid');
     }
 
     const matchHistoryList = document.getElementById('match-history-list');
@@ -149,12 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showMatchDetails(details, gameId) {
         const detailWindow = document.createElement('div');
-        detailWindow.className='pupop';
+        detailWindow.className = 'pupop';
 
         const leftDiv = document.createElement('div');
-        leftDiv.className='left';
+        leftDiv.className = 'left';
         const rightDiv = document.createElement('div');
-        rightDiv.className='right';
+        rightDiv.className = 'right';
 
         detailWindow.appendChild(leftDiv);
         detailWindow.appendChild(rightDiv);
@@ -197,14 +165,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     gameInfoDiv.innerHTML = `
                         <figure id="yxtx">
                             <div class="name">${playerData[index].gameName}</div>
-                            <img src="" alt="英雄头像" class="avatar">
+                            <img src="yxtx/${championId}.png" alt="英雄头像" class="avatar"> <!-- 使用 'yxtx' 文件夹 -->
                         </figure>
                         <div class="spells">
                             <div id="spells1">
-                                <img src="" alt="召唤师技能1">
+                                <img src="jineng/${spells1}.png" alt="召唤师技能1"> <!-- 使用 'jineng' 文件夹 -->
                             </div>
                             <div id="spells2">
-                                <img src="" alt="召唤师技能2">
+                                <img src="jineng/${spells2}.png" alt="召唤师技能2"> <!-- 使用 'jineng' 文件夹 -->
                             </div>
                         </div>
                         <div class="details">
@@ -215,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="items">
                                 ${items.map((itemId, itemIndex) => `
                                     <article id="item${itemIndex}">
-                                        <img src="" alt="${itemIndex + 1}">
+                                        <img src="items/${itemId}.png" alt="${itemIndex + 1}"> <!-- 使用 'items' 文件夹 -->
                                     </article>
                                 `).join('')}
                             </div>
@@ -233,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         let leftDiv = detailWindow.querySelector('.left');
                         if (leftDiv === null) {
                             leftDiv = document.createElement('div');
-                            leftDiv.className='left';
+                            leftDiv.className = 'left';
                             detailWindow.appendChild(leftDiv);
                         }
                         leftDiv.appendChild(gameInfoDiv);
@@ -242,37 +210,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         let rightDiv = detailWindow.querySelector('.right');
                         if (rightDiv === null) {
                             rightDiv = document.createElement('div');
-                            rightDiv.className='right';
+                            rightDiv.className = 'right';
                             detailWindow.appendChild(rightDiv);
                         }
                         rightDiv.appendChild(gameInfoDiv);
                     }
-
-                    fetchWithErrorHandling(
-                        `http://localhost:8080/Client/getChampionIcons?championId=${championId}`,
-                        data => {
-                            const image = gameInfoDiv.querySelector('.avatar');
-                            image.src = data.url;
-                        },
-                        error => {
-                            console.error('Error fetching champion icon:', error);
-                        }
-                    );
-
-                    fetchSkillAndItems(spells1, gameInfoDiv.querySelector('#spells1'));
-                    fetchSkillAndItems(spells2, gameInfoDiv.querySelector('#spells2'));
-
-                    items.forEach((itemId, itemIndex) => {
-                        fetch(`http://localhost:8080/Client/getitem?id=${itemId}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                const image = gameInfoDiv.querySelector(`#item${itemIndex} img`);
-                                image.src = data.url;
-                            })
-                            .catch(error => {
-                                console.error(`Error fetching item ${itemIndex}:`, error);
-                            });
-                    });
                 });
 
                 detailWindow.prepend(closeButton);
@@ -281,19 +223,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(detailWindow);
             })
             .catch(error => {
-                console.error('Error fetching match history by gameId:', error);
+                console.error('通过gameId获取比赛历史时出错:', error);
             });
     }
 
     function fetchSkillAndItems(id, element) {
-        fetch(`http://localhost:8080/Client/getSummonerSkill?id=${id}`)
+        fetch(`http://localhost:8080/Client/jineng?id=${id}`)
             .then(response => response.json())
             .then(data => {
                 const image = element.querySelector('img');
                 image.src = data.url;
             })
             .catch(error => {
-                console.error(`Error fetching skill for ${id}:`, error);
+                console.error(`获取技能时出错 ${id}:`, error);
             });
     }
 

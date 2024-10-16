@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let totalAssists = 0;
     let totalDeaths = 0;
     const puuid = localStorage.getItem('puuid'); // Retrieve puuid from localStorage
+    const championUsage = {}; // Object to track champion usage
 
     // Fetch and display the initial 10 matches
     for (let i = 0; i < 10; i++) {
@@ -17,12 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 totalAssists += participant.stats.assists;
                 totalDeaths += participant.stats.deaths;
 
+                const championId = participant.championId;
+                championUsage[championId] = (championUsage[championId] || 0) + 1; // Track champion usage
+
                 matchData.push({
                     gameId: gameId,
                     kda: `${participant.stats.kills}/${participant.stats.deaths}/${participant.stats.assists}`,
                     goldEarned: participant.stats.goldEarned,
                     win: participant.stats.win,
-                    championId: participant.championId,
+                    championId: championId,
                     gameCreationDate: new Date(game.gameCreation),
                     spells1: participant.spell1Id,
                     spells2: participant.spell2Id,
@@ -44,12 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     const kdaRatio = totalDeaths === 0 ? 'Perfect' : (((totalKills + totalAssists) / totalDeaths) * 3).toFixed(2);
                     document.querySelector('.avgkda p').textContent = kdaRatio;
                     displayMatches(matchData);
+                    displayTopChampions(championUsage); // Display top champions
                 }
             })
             .catch(error => {
                 console.error('Error fetching match history:', error);
             });
     }
+
 
     function displayMatches(matches) {
         const matchHistoryList = document.querySelector('#match-history-list');
@@ -91,36 +97,20 @@ document.addEventListener('DOMContentLoaded', function() {
             gameInfoContainer.dataset.gameId = match.gameId;
             matchHistoryList.appendChild(gameInfoContainer);
 
-            fetch(`http://localhost:8080/Client/getChampionIcons?championId=${match.championId}`)
-                .then(response => response.json())
-                .then(data => {
-                    gameInfoContainer.querySelector('#yxtx img').src = data.url;
-                })
-                .catch(error => {
-                    console.error('Error fetching champion icon:', error);
-                });
+            // 更新英雄头像的获取方式为使用 'yxtx' 文件夹
+            const championImage = gameInfoContainer.querySelector('.avatar');
+            championImage.src = `yxtx/${match.championId}.png`; // 更新为使用 'yxtx' 文件夹
 
-            fetch(`http://localhost:8080/Client/getSummonerSkill?id=${match.spells1}`)
-                .then(response => response.json())
-                .then(data => {
-                    gameInfoContainer.querySelector('#spells1 img').src = data.url;
-                });
-            fetch(`http://localhost:8080/Client/getSummonerSkill?id=${match.spells2}`)
-                .then(response => response.json())
-                .then(data => {
-                    gameInfoContainer.querySelector('#spells2 img').src = data.url;
-                });
+            // 更新技能图标的获取方式为使用 'jineng' 文件夹
+            const spells1Image = gameInfoContainer.querySelector('#spells1 img');
+            spells1Image.src = `jineng/${match.spells1}.png`; // 更新为使用 'jineng' 文件夹
+
+            const spells2Image = gameInfoContainer.querySelector('#spells2 img');
+            spells2Image.src = `jineng/${match.spells2}.png`; // 更新为使用 'jineng' 文件夹
+
             match.items.forEach((item, index) => {
-                fetch(`http://localhost:8080/Client/getitem?id=${item}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const imgElement = gameInfoContainer.querySelector(`#item${index} img`);
-                        imgElement.src = data.url || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-                    })
-                    .catch(() => {
-                        const imgElement = gameInfoContainer.querySelector(`#item${index} img`);
-                        imgElement.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-                    });
+                const imgElement = gameInfoContainer.querySelector(`#item${index} img`);
+                imgElement.src = `items/${item}.png`; // 更新为使用 'items' 文件夹
             });
         });
     }
@@ -262,31 +252,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             rightDiv.appendChild(gameInfoDiv)
                         }
 
-                    // 更新英雄头像和技能图标
-                    fetchWithErrorHandling(
-                        `http://localhost:8080/Client/getChampionIcons?championId=${championId}`,
-                        data => {
-                            const image = gameInfoDiv.querySelector('.avatar');
-                            image.src = data.url;
-                        },
-                        error => {
-                            console.error('Error fetching champion icon:', error);
-                        }
-                    );
+                    // 更新英雄头像的获取方式为使用 'yxtx' 文件夹
+                    const championImage = gameInfoDiv.querySelector('.avatar');
+                    championImage.src = `yxtx/${participant.championId}.png`; // 确保使用 championId
 
-                    fetchSkillAndItems(spells1, gameInfoDiv.querySelector('#spells1'));
-                    fetchSkillAndItems(spells2, gameInfoDiv.querySelector('#spells2'));
+                    // 更新技能图标的获取方式为使用 'jineng' 文件夹
+                    const spells1Image = gameInfoDiv.querySelector('#spells1 img');
+                    spells1Image.src = `jineng/${participant.spell1Id}.png`; // 更新为使用 'jineng' 文件夹
+
+                    const spells2Image = gameInfoDiv.querySelector('#spells2 img');
+                    spells2Image.src = `jineng/${participant.spell2Id}.png`; // 更新为使用 'jineng' 文件夹
 
                     items.forEach((itemId, itemIndex) => {
-                        fetch(`http://localhost:8080/Client/getitem?id=${itemId}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                const image = gameInfoDiv.querySelector(`#item${itemIndex} img`);
-                                image.src = data.url;
-                            })
-                            .catch(error => {
-                                console.error(`Error fetching item ${itemIndex}:`, error);
-                            });
+                        const image = gameInfoDiv.querySelector(`#item${itemIndex} img`);
+                        image.src = `items/${itemId}.png`; // 更新为使用 'items' 文件夹
                     });
                 });
 
@@ -356,3 +335,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
 });
+
+
