@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://127.0.0.1:5501")
+
+@CrossOrigin(origins = {"http://127.0.0.1:5501","http://127.0.0.1:5500"})
+
 @Controller
 @ResponseBody
 @RequestMapping("Client")
