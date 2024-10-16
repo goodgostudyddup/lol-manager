@@ -18,4 +18,3 @@
 ~~进入对局时查询队伍两边战绩自动分析两边大哥（未完成~~
 
 ![alt text](image.png)
-![alt text](image-1.png)
